@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="700.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gdse.serenity.controller.PatientManagementController">
+    <top>
+        <VBox spacing="10.0">
+            <children>
+            <Label text="Patient Management" textFill="#3a7a6f">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+                <Separator />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </VBox>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.30594594594594593" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <VBox spacing="10.0">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <children>
+                        <Label text="Patient Details">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <GridPane hgap="10.0" vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="ID:" />
+                                <Label fx:id="patientIdLabel" prefHeight="17.0" prefWidth="175.0" text="-" GridPane.columnIndex="1" />
+
+                                <Label text="Name:" GridPane.rowIndex="1" />
+                                <Label fx:id="patientNameLabel" prefHeight="17.0" prefWidth="175.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                <Label text="Email:" GridPane.rowIndex="2" />
+
+                                <Label text="Phone:" GridPane.rowIndex="3" />
+
+                                <Label text="Join Date:" GridPane.rowIndex="4" />
+
+                                <Label text="Status:" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="statusComboBox" prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label fx:id="patientEmailLabel" prefHeight="17.0" prefWidth="175.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label fx:id="patientPhoneLabel" prefHeight="17.0" prefWidth="175.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label fx:id="patientJoinDateLabel" prefHeight="17.0" prefWidth="175.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            </children>
+                        </GridPane>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                            <children>
+                                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #e0e0e0;" text="Clear" />
+                                <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Save" />
+                            </children>
+                            <padding>
+                                <Insets top="10.0" />
+                            </padding>
+                        </HBox>
+                        <TitledPane expanded="true" prefWidth="238.0" text="Enrolled Programs">
+                            <content>
+                                <ListView fx:id="enrolledProgramsListView" prefHeight="81.0" prefWidth="258.0" style="-fx-background-color: cornsilk;" />
+                            </content>
+                        </TitledPane>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <Region prefHeight="26.0" prefWidth="154.0" />
+                                <Button fx:id="viewScheduleButton" onAction="#handleViewSchedule" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" styleClass="action-button" text="View Schedule" textAlignment="CENTER" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox spacing="10.0">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="Patients">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Region HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="searchField" prefWidth="200.0" promptText="Search patients..." />
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Search" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="20.0" spacing="10.0">
+                            <children>
+                                <ComboBox fx:id="filterComboBox" promptText="Filter by Program" style="-fx-background-color: cornsilk;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="addPatientButton" mnemonicParsing="false" onAction="#openAddPatientDialog" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Add New Patient" />
+                            </children>
+                        </HBox>
+                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="All Patients">
+                           <content>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <TableView fx:id="patientTable" prefWidth="1031.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="idColumn" prefWidth="62.0" text="ID" />
+                                          <TableColumn fx:id="nameColumn" prefWidth="111.0" text="Name" />
+                                          <TableColumn fx:id="emailColumn" prefWidth="102.5" text="Email" />
+                                          <TableColumn fx:id="contactColumn" prefWidth="86.5" text="Phone" />
+                                          <TableColumn fx:id="programsColumn" prefWidth="153.0" text="Enrolled Programs" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="83.0" text="Status" />
+                                       </columns>
+                                       <placeholder>
+                                          <Label text="No patients found" />
+                                       </placeholder>
+                                    </TableView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab text="New Registrations">
+                           <content>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <TableView fx:id="newRegistrationsTable" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="newRegIdColumn" prefWidth="62.0" text="ID" />
+                                          <TableColumn fx:id="newRegNameColumn" prefWidth="137.0" text="Name" />
+                                          <TableColumn fx:id="newRegDateColumn" prefWidth="114.5" text="Registration Date" />
+                                          <TableColumn fx:id="newRegProgramColumn" prefWidth="204.0" text="Program" />
+                                          <TableColumn fx:id="statusColumn1" prefWidth="80.5" text="Status" />
+                                       </columns>
+                                       <placeholder>
+                                          <Label text="No new registrations found" />
+                                       </placeholder>
+                                    </TableView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                            <children>
+                                <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEdit" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Edit" />
+                                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #ff5757; -fx-text-fill: white;" text="Delete" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" style="-fx-background-color: #f0f7ff;" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="statusLabel" text="Ready" />
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>
