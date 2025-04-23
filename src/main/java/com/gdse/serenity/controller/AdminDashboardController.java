@@ -29,7 +29,7 @@ public class AdminDashboardController {
     private AnchorPane ancContent;
 
     @FXML
-    private BorderPane ancMenuPage;
+    private AnchorPane ancMenuPage;
 
     @FXML
     private StackPane contentArea;

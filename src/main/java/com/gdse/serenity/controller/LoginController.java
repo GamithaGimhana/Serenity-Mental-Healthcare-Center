@@ -1,9 +1,8 @@
 package com.gdse.serenity.controller;
 
-import com.gdse.serenity.db.DBConnection;
+import com.gdse.serenity.config.FactoryConfiguration;
 import com.gdse.serenity.entity.User;
 import com.gdse.serenity.util.EncryptionUtil;
-import com.gdse.serenity.util.HibernateUtil;
 import com.gdse.serenity.util.ValidationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,15 +10,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginController {
+
+    @FXML
+    private AnchorPane ancLogin;
 
     @FXML
     private TextField usernameField;
@@ -92,29 +94,50 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordVisible ? visiblePasswordField.getText() : passwordField.getText();
 
-        // Validate inputs
         if (username.isEmpty() || password.isEmpty()) {
             errorMessageLabel.setText("Username and password cannot be empty");
             return;
         }
 
         try {
-            // Validate username format
             if (!ValidationUtil.isValidUsername(username)) {
                 errorMessageLabel.setText("Invalid username format");
                 return;
             }
 
-            // Authenticate user by querying the database
-            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            try (Session session = FactoryConfiguration.getInstance().getSession()) {
                 session.beginTransaction();
+
+                // Check if default admin exists
+                Query<User> checkAdminQuery = session.createQuery("FROM User WHERE username = :username", User.class);
+                checkAdminQuery.setParameter("username", "admin");
+                User existingAdmin = checkAdminQuery.uniqueResult();
+
+                // If not found, create the admin user
+                if (existingAdmin == null) {
+                    User defaultAdmin = new User();
+                    defaultAdmin.setUserId("U000");
+                    defaultAdmin.setName("System Administrator");
+                    defaultAdmin.setEmail("admin@serenity.com");
+                    defaultAdmin.setPhone("0000000000");
+                    defaultAdmin.setUsername("admin");
+                    defaultAdmin.setPassword(EncryptionUtil.hashPassword("1234"));
+                    defaultAdmin.setRole("ADMIN");
+                    session.save(defaultAdmin);
+                }
+
+                session.getTransaction().commit();
+            }
+
+            // Reopen session to handle login
+            try (Session session = FactoryConfiguration.getInstance().getSession()) {
+                session.beginTransaction();
+
                 Query<User> query = session.createQuery("FROM User WHERE username = :username", User.class);
                 query.setParameter("username", username);
-
                 User user = query.uniqueResult();
                 session.getTransaction().commit();
 
-                // Check if user exists and password matches
                 if (user == null) {
                     errorMessageLabel.setText("Authentication failed");
                     return;
@@ -125,15 +148,15 @@ public class LoginController {
                     return;
                 }
 
-                // Transition to appropriate dashboard based on role
-                if ("admin".equals(user.getRole())) {
+                if ("ADMIN".equals(user.getRole())) {
                     loadAdminDashboard(user);
-                } else if ("receptionist".equals(user.getRole())) {
+                } else if ("RECEPTIONIST".equals(user.getRole())) {
                     loadReceptionistDashboard(user);
                 } else {
                     errorMessageLabel.setText("Unknown user role");
                 }
             }
+
         } catch (Exception e) {
             errorMessageLabel.setText("An unexpected error occurred");
             e.printStackTrace();
@@ -141,7 +164,7 @@ public class LoginController {
     }
 
     private void loadAdminDashboard(User user) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/serenity/view/AdminDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/adminDashboardFx.fxml"));
         Parent root = loader.load();
 
         AdminDashboardController controller = loader.getController();
@@ -155,7 +178,7 @@ public class LoginController {
     }
 
     private void loadReceptionistDashboard(User user) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/serenity/view/ReceptionistDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/receptionistDashboardFx.fxml"));
         Parent root = loader.load();
 
         ReceptionistDashboardController controller = loader.getController();

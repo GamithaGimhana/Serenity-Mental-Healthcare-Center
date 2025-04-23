@@ -5,11 +5,11 @@ import com.gdse.serenity.dao.DAOFactory;
 import com.gdse.serenity.dao.custom.UserDAO;
 import com.gdse.serenity.dto.UserDTO;
 import com.gdse.serenity.entity.User;
-import com.sun.mail.imap.protocol.ID;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserBOImpl implements UserBO {
     UserDAO userDAO = DAOFactory.getInstance().getDAO(DAOFactory.DAOType.USER);
@@ -40,8 +40,15 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public boolean delete(ID customerId) throws SQLException, ClassNotFoundException {
-        return userDAO.deleteByPK(customerId);
+    public boolean delete(String userId) throws SQLException, ClassNotFoundException {
+        return userDAO.deleteById(userId);
     }
+
+    @Override
+    public Optional<UserDTO> findById(String selectedUserId) throws SQLException, ClassNotFoundException {
+        Optional<User> userOpt = userDAO.findById(selectedUserId);
+        return userOpt.map(user -> new UserDTO(user.getUserId(), user.getName(), user.getEmail(), user.getPhone(), user.getUsername(), user.getPassword(), user.getRole()));
+    }
+
 
 }

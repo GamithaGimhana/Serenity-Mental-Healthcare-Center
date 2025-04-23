@@ -4,8 +4,8 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url"/>
-    <property name="connection.driver_class"/>
+<!--    <property name="connection.url"/>-->
+<!--    <property name="connection.driver_class"/>-->
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
@@ -20,8 +20,15 @@
     <property name="hibernate.show_sql">true</property> <!-- sql queries pennanw mek true klm-->
 
     <!--schema generation stratagies-->
-    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
 
-    <mapping package="com.gdse.serenity.entity"/>
+      <!-- Entity class mappings -->
+      <mapping class="com.gdse.serenity.entity.User"/>
+      <mapping class="com.gdse.serenity.entity.Patient"/>
+      <mapping class="com.gdse.serenity.entity.Therapist"/>
+      <mapping class="com.gdse.serenity.entity.TherapyProgram"/>
+      <mapping class="com.gdse.serenity.entity.TherapySession"/>
+      <mapping class="com.gdse.serenity.entity.Payment"/>
+<!--    <mapping package="com.gdse.serenity.entity"/>-->
   </session-factory>
 </hibernate-configuration>

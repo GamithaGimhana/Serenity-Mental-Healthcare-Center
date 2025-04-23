@@ -1,6 +1,6 @@
 package com.gdse.serenity.config;
 
-import com.gdse.serenity.entity.User;
+import com.gdse.serenity.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,9 +10,14 @@ public class FactoryConfiguration {
     private SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
-        Configuration configuration = new Configuration().configure();
+        Configuration configuration = new Configuration().configure()
 
-        configuration.addAnnotatedClass(User.class);
+        .addAnnotatedClass(User.class)
+        .addAnnotatedClass(Patient.class)
+        .addAnnotatedClass(Therapist.class)
+        .addAnnotatedClass(TherapyProgram.class)
+        .addAnnotatedClass(TherapySession.class)
+        .addAnnotatedClass(Payment.class);
 
         sessionFactory = configuration.buildSessionFactory();
     }

@@ -1,7 +1,6 @@
 package com.gdse.serenity;
 
 import com.gdse.serenity.config.FactoryConfiguration;
-import com.gdse.serenity.entity.User;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import java.util.List;
 
 public class AppInitializer extends Application {
 
@@ -26,8 +21,8 @@ public class AppInitializer extends Application {
         Task<Scene> loadingTask = new Task<Scene>() {
             @Override
             protected Scene call() throws Exception {
-//                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/loginFx.fxml"));
-                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/adminDashboard.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/loginFx.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(AppInitializer.class.getResource("/view/adminDashboardFx.fxml"));
                 return new Scene(fxmlLoader.load());
             }
         };
@@ -48,6 +43,8 @@ public class AppInitializer extends Application {
     }
 
     public static void main(String[] args) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.close();
         launch();
     }
 }

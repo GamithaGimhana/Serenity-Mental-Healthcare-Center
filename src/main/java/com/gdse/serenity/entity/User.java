@@ -14,24 +14,24 @@ import java.util.List;
 @Table(name = "user")
 public class User implements SuperEntity {
     @Id
-    @Column(name = "user_id")
-    private String  userId;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String userId;
 
-    @Column(name = "name", nullable = false)
+    @Column
     private String name;
 
-    @Column(name = "email")
+    @Column
     private String email;
 
-    @Column(name = "phone")
+    @Column
     private String phone;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column
     private String password;
 
-    @Column(name = "role", nullable = false)
+    @Column
     private String role;
 }

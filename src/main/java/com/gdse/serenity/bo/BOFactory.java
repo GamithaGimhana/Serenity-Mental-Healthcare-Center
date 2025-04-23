@@ -17,7 +17,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        USER
+        USER, THERAPIST, PATIENT, THERAPY_PROGRAM, THERAPY_SESSION, PAYMENT
     }
 
     public SuperBO getBO(BOType type) {
