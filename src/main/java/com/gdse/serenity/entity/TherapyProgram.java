@@ -38,6 +38,15 @@ public class TherapyProgram implements SuperEntity {
     @ManyToMany(mappedBy = "therapyPrograms")
     private Set<Patient> patients = new HashSet<>();
 
+    public TherapyProgram(String programId, String name, int durationInWeeks, double cost, String description) {
+
+        this.programId = programId;
+        this.name = name;
+        this.durationInWeeks = durationInWeeks;
+        this.cost = cost;
+        this.description = description;
+    }
+
     // Getters and Setters
 }
 

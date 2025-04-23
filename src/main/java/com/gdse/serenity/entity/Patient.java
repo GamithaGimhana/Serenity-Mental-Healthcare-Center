@@ -45,5 +45,15 @@ public class Patient implements SuperEntity {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
 
+    public Patient(String pId, String name, String email, String phone, String medicalHistory, LocalDate registrationDate, String status) {
+        this.pId = pId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.medicalHistory = medicalHistory;
+        this.registrationDate = registrationDate;
+        this.status = status;
+    }
+
     // Getters and Setters
 }

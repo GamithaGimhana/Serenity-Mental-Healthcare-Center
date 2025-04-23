@@ -4,8 +4,10 @@ import com.gdse.serenity.bo.custom.PatientBO;
 import com.gdse.serenity.dao.DAOFactory;
 import com.gdse.serenity.dao.custom.PatientDAO;
 import com.gdse.serenity.dto.PatientDTO;
+import com.gdse.serenity.entity.Patient;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,31 +16,37 @@ public class PatientBOImpl implements PatientBO {
 
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
-        return "";
+        return patientDAO.getNextId();
     }
 
     @Override
     public boolean save(PatientDTO patientDTO) throws SQLException, ClassNotFoundException {
-        return false;
+        return patientDAO.save(new Patient(patientDTO.getPId(), patientDTO.getName(), patientDTO.getEmail(), patientDTO.getPhone(), patientDTO.getMedicalHistory(), patientDTO.getRegistrationDate(), patientDTO.getStatus()));
     }
 
     @Override
     public List<PatientDTO> getAll() throws SQLException, ClassNotFoundException {
-        return List.of();
+        List<PatientDTO> patientDTOS = new ArrayList<>();
+        List<Patient> patients = patientDAO.getAll();
+        for (Patient patient : patients) {
+            patientDTOS.add(new PatientDTO(patient.getPId(), patient.getName(), patient.getEmail(), patient.getPhone(), patient.getMedicalHistory(), patient.getRegistrationDate(), patient.getStatus()));
+        }
+        return patientDTOS;
     }
 
     @Override
     public boolean update(PatientDTO patientDTO) throws SQLException, ClassNotFoundException {
-        return false;
+        return patientDAO.update(new Patient(patientDTO.getPId(), patientDTO.getName(), patientDTO.getEmail(), patientDTO.getPhone(), patientDTO.getMedicalHistory(), patientDTO.getRegistrationDate(), patientDTO.getStatus()));
     }
 
     @Override
     public boolean delete(String patientId) throws SQLException, ClassNotFoundException {
-        return false;
+        return patientDAO.deleteById(patientId);
     }
 
     @Override
     public Optional<PatientDTO> findById(String selectedPatientId) throws SQLException, ClassNotFoundException {
-        return Optional.empty();
+        Optional<Patient> patientOpt = patientDAO.findById(selectedPatientId);
+        return patientOpt.map(patient -> new PatientDTO(patient.getPId(), patient.getName(), patient.getEmail(), patient.getPhone(), patient.getMedicalHistory(), patient.getRegistrationDate(), patient.getStatus()));
     }
 }

@@ -20,7 +20,7 @@
     <property name="hibernate.show_sql">true</property> <!-- sql queries pennanw mek true klm-->
 
     <!--schema generation stratagies-->
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
 
       <!-- Entity class mappings -->
       <mapping class="com.gdse.serenity.entity.User"/>

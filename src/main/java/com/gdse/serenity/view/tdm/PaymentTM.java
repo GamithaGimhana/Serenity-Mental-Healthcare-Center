@@ -3,6 +3,7 @@ package com.gdse.serenity.view.tdm;
 import com.gdse.serenity.entity.SuperEntity;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.Date;
 public class PaymentTM implements SuperEntity {
     private String payId;
     private double amount;
-    private Date paymentDate;
+    private LocalDate paymentDate;
     private String paymentMethod;
     private String status;
     private PatientTM patient;

@@ -4,6 +4,7 @@ import com.gdse.serenity.entity.SuperEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -14,7 +15,7 @@ import java.util.Date;
 public class PaymentDTO implements SuperEntity {
     private String payId;
     private double amount;
-    private Date paymentDate;
+    private LocalDate paymentDate;
     private String paymentMethod;
     private String status;
     private PatientDTO patient;

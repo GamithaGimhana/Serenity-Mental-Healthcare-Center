@@ -1,10 +1,14 @@
 package com.gdse.serenity.entity;
 
+import com.gdse.serenity.dto.PatientDTO;
+import com.gdse.serenity.dto.TherapistDTO;
+import com.gdse.serenity.dto.TherapyProgramDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -18,7 +22,7 @@ public class TherapySession implements SuperEntity {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String tsId;
 
-    private Date sessionDate;
+    private LocalDate sessionDate;
 
     @ManyToOne
     @JoinColumn(name = "therapist_id")
@@ -31,6 +35,11 @@ public class TherapySession implements SuperEntity {
     @ManyToOne
     @JoinColumn(name = "program_id")
     private TherapyProgram program;
+
+    public TherapySession(String tsId, LocalDate sessionDate) {
+        this.tsId = tsId;
+        this.sessionDate = sessionDate;
+    }
 
     // Getters and Setters
 }

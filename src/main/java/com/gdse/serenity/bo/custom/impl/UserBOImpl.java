@@ -50,5 +50,4 @@ public class UserBOImpl implements UserBO {
         return userOpt.map(user -> new UserDTO(user.getUserId(), user.getName(), user.getEmail(), user.getPhone(), user.getUsername(), user.getPassword(), user.getRole()));
     }
 
-
 }

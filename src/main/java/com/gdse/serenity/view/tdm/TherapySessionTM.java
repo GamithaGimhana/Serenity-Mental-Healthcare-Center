@@ -3,6 +3,7 @@ package com.gdse.serenity.view.tdm;
 import com.gdse.serenity.entity.SuperEntity;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -12,8 +13,7 @@ import java.util.Date;
 @ToString
 public class TherapySessionTM implements SuperEntity {
     private String tsId;
-    private Date sessionDate;
-    private String notes;
+    private LocalDate sessionDate;
     private TherapistTM therapist;
     private PatientTM patient;
     private TherapyProgramTM program;

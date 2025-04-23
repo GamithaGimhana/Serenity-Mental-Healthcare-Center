@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class Payment implements SuperEntity {
 
     private double amount;
 
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     private String paymentMethod;
 
@@ -29,6 +30,11 @@ public class Payment implements SuperEntity {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
+
+    public Payment(String payId, double amount, LocalDate paymentDate, String paymentMethod, String status) {
+        this.payId = payId;
+        this.amount = amount;
+    }
 
     // Getters and Setters
 }
