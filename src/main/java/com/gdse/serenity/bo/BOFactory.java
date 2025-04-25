@@ -1,7 +1,8 @@
 package com.gdse.serenity.bo;
 
 
-import com.gdse.serenity.bo.custom.impl.UserBOImpl;
+import com.gdse.serenity.bo.custom.impl.*;
+import com.gdse.serenity.dao.custom.impl.*;
 
 public class BOFactory {
     public static BOFactory boFactory;
@@ -24,6 +25,16 @@ public class BOFactory {
         switch (type) {
             case USER:
                 return new UserBOImpl();
+            case THERAPIST:
+                return new TherapistBOImpl();
+            case PATIENT:
+                return new PatientBOImpl();
+            case THERAPY_PROGRAM:
+                return new TherapyProgramBOImpl();
+            case THERAPY_SESSION:
+                return new TherapySessionBOImpl();
+            case PAYMENT:
+                return new PaymentBOImpl();
             default:
                 return null;
         }

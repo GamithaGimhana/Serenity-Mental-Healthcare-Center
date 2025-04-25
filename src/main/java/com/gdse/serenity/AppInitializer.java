@@ -34,7 +34,7 @@ public class AppInitializer extends Application {
             Image image = new Image(getClass().getResourceAsStream("/assests/images/logo.png"));
             stage.getIcons().add(image);
 
-            stage.setResizable(false);
+//            stage.setResizable(false);
 
             stage.setScene(value);
         });
