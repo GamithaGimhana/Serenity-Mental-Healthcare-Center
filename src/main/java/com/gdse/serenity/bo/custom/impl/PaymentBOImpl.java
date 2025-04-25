@@ -30,7 +30,7 @@ public class PaymentBOImpl implements PaymentBO {
         List<PaymentDTO> paymentDTOS = new ArrayList<>();
         List<Payment> payments = paymentDAO.getAll();
         for (Payment payment : payments) {
-            paymentDTOS.add(new PaymentDTO(payment.getPayId(), payment.getAmount(), payment.getPaymentDate(), payment.setPaymentMethod(), payment.setStatus()));
+            paymentDTOS.add(new PaymentDTO(payment.getPayId(), payment.getAmount(), payment.getPaymentDate(), payment.getPaymentMethod(), payment.getStatus()));
         }
         return paymentDTOS;
     }
@@ -48,6 +48,6 @@ public class PaymentBOImpl implements PaymentBO {
     @Override
     public Optional<PaymentDTO> findById(String selectedPaymentId) throws SQLException, ClassNotFoundException {
         Optional<Payment> paymentOpt = paymentDAO.findById(selectedPaymentId);
-        return paymentOpt.map(payment -> new PaymentDTO(payment.getPayId(), payment.getAmount(), payment.getPaymentDate(), payment.setPaymentMethod(), payment.setStatus()));
+        return paymentOpt.map(payment -> new PaymentDTO(payment.getPayId(), payment.getAmount(), payment.getPaymentDate(), payment.getPaymentMethod(), payment.getStatus()));
     }
 }

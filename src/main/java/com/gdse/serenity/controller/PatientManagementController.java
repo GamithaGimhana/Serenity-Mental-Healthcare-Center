@@ -112,13 +112,14 @@ public class PatientManagementController implements Initializable {
 
     PatientBOImpl patientBO = (PatientBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("tId"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("pId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        programsColumn.setCellValueFactory(new PropertyValueFactory<>("specialization"));
+        programsColumn.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         try {
@@ -139,7 +140,7 @@ public class PatientManagementController implements Initializable {
         txtMediHistory.setText("");
         txtRegDate.setValue(null);
         statusComboBox.getSelectionModel().clearSelection();
-        enrolledProgramsListView.getSelectionModel().clearSelection();
+        enrolledProgramsListView.getItems().clear();
 
         loadStatus();
 
@@ -165,13 +166,12 @@ public class PatientManagementController implements Initializable {
                     patient.getName(),
                     patient.getEmail(),
                     patient.getPhone(),
-                    patient.getTherapyPrograms(),
+                    patient.getRegistrationDate(),
                     patient.getStatus()
             );
             patientTMS.add(patientTM);
         }
 
-        patientTable.setItems(patientTMS);  // Bind to TableView
     }
 
     @FXML
@@ -346,6 +346,7 @@ public class PatientManagementController implements Initializable {
         PatientTM selectedItem = patientTable.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             patientIdLabel.setText(selectedItem.getPId());
+
             txtName.setText(selectedItem.getName());
             txtEmail.setText(selectedItem.getEmail());
             txtPhone.setText(selectedItem.getPhone());

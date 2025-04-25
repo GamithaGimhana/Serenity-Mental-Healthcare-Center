@@ -26,12 +26,13 @@ public class PatientTM {
     private List<TherapySessionDTO> therapySessions = new ArrayList<>();
     private List<PaymentDTO> payments = new ArrayList<>();
 
-    public PatientTM(String pId, String name, String email, String phone, Set<TherapyProgramDTO> therapyPrograms, String status) {
+    public PatientTM(String pId, String name, String email, String phone, LocalDate registrationDate, String status) {
         this.pId = pId;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.therapyPrograms = therapyPrograms;
+        this.registrationDate = registrationDate;
         this.status = status;
     }
+
 }

@@ -20,4 +20,11 @@ public class PaymentDTO implements SuperEntity {
     private String status;
     private PatientDTO patient;
 
+    public PaymentDTO(String payId, double amount, LocalDate paymentDate, String paymentMethod, String status) {
+        this.payId = payId;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.paymentMethod = paymentMethod;
+        this.status = status;
+    }
 }
