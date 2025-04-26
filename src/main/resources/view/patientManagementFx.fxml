@@ -149,11 +149,12 @@
                         <TableView fx:id="patientTable" onMouseClicked="#onClickTable" prefHeight="505.0" prefWidth="619.0">
                            <columns>
                               <TableColumn fx:id="idColumn" prefWidth="62.0" text="ID" />
-                              <TableColumn fx:id="nameColumn" prefWidth="111.0" text="Name" />
-                              <TableColumn fx:id="emailColumn" prefWidth="102.5" text="Email" />
-                              <TableColumn fx:id="phoneColumn" prefWidth="86.5" text="Phone" />
-                              <TableColumn fx:id="programsColumn" prefWidth="162.5" text="Enrolled Programs" />
-                              <TableColumn fx:id="statusColumn" prefWidth="93.5" text="Status" />
+                              <TableColumn fx:id="nameColumn" prefWidth="96.0" text="Name" />
+                              <TableColumn fx:id="emailColumn" prefWidth="121.5" text="Email" />
+                              <TableColumn fx:id="phoneColumn" prefWidth="77.0" text="Phone" />
+                              <TableColumn fx:id="dateColumn" prefWidth="74.5" text="Join Date" />
+                              <TableColumn fx:id="mediHisColumn" prefWidth="73.0" text="Medical History" />
+                              <TableColumn fx:id="statusColumn" prefWidth="114.0" text="Status" />
                            </columns>
                            <placeholder>
                               <Label text="No patients found" />

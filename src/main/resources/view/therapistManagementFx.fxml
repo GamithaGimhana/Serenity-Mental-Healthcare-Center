@@ -137,7 +137,6 @@
                               </HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="20.0" spacing="10.0">
                            <children>
-                              <ComboBox fx:id="filterComboBox" promptText="Filter by Program" style="-fx-background-color: cornsilk;" />
                               <Region HBox.hgrow="ALWAYS" />
                               <Button fx:id="addTherapistButton" onAction="#showAddTherapistDialog" style="-fx-background-color: #2b579a; -fx-text-fill: white;" styleClass="primary-button" text="Add New Therapist" />
                            </children>

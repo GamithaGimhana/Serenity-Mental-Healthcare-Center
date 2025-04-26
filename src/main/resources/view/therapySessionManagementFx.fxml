@@ -96,25 +96,6 @@
                                         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #ff5757; -fx-text-fill: white;" text="Delete" />
                                     </children>
                                 </HBox>
-                                <VBox alignment="CENTER" spacing="10.0">
-                                    <children>
-                                        <Label text="Therapist Availability" underline="true">
-                                            <font>
-                                                <Font name="System Bold" size="12.0" />
-                                            </font>
-                                        </Label>
-                                        <HBox alignment="CENTER" spacing="10.0">
-                                            <children>
-                                                <DatePicker fx:id="availabilityDatePicker" prefHeight="25.0" prefWidth="165.0" promptText="Select date" />
-                                                <Button fx:id="checkAvailabilityButton" mnemonicParsing="false" onAction="#handleCheckAvailability" style="-fx-background-color: #2b579a; -fx-text-fill: white;" text="Check" />
-                                            </children>
-                                        </HBox>
-                                        <Label fx:id="availabilityStatusLabel" text="No date selected" textFill="#0d6efd" />
-                                    </children>
-                                    <padding>
-                                        <Insets top="20.0" />
-                                    </padding>
-                                </VBox>
                             </children>
                         </VBox>
                         <VBox spacing="10.0">
@@ -136,9 +117,6 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                     <children>
-                                        <ComboBox fx:id="filterComboBox" prefWidth="150.0" promptText="Filter by Program" style="-fx-background-color: cornsilk;" />
-                                        <DatePicker fx:id="filterDatePicker" prefWidth="150.0" promptText="Filter by date" />
-                                        <Button fx:id="applyFilterButton" mnemonicParsing="false" onAction="#handleApplyFilter" style="-fx-background-color: #2b579a; -fx-text-fill: white;" text="Apply" />
                                         <Region HBox.hgrow="ALWAYS" />
                                         <Button fx:id="addSessionButton" onAction="#showAddSessionDialog" style="-fx-background-color: #2b579a; -fx-text-fill: white;" styleClass="primary-button" text="Add New Session" />
                                     </children>
@@ -146,10 +124,10 @@
                                 <TableView fx:id="sessionTable" onMouseClicked="#onClickTable" VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn fx:id="idColumn" prefWidth="80.0" text="ID" />
-                                        <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
-                                        <TableColumn fx:id="patientColumn" prefWidth="120.0" text="Patient" />
-                                        <TableColumn fx:id="therapistColumn" prefWidth="120.0" text="Therapist" />
-                                        <TableColumn fx:id="programColumn" prefWidth="140.0" text="Program" />
+                                        <TableColumn fx:id="dateColumn" prefWidth="102.0" text="Date" />
+                                        <TableColumn fx:id="therapistColumn" prefWidth="126.5" text="Therapist" />
+                                        <TableColumn fx:id="patientColumn" prefWidth="140.5" text="Patient" />
+                                        <TableColumn fx:id="programColumn" prefWidth="127.5" text="Program" />
                                     </columns>
                                     <placeholder>
                                         <Label text="No sessions found" />

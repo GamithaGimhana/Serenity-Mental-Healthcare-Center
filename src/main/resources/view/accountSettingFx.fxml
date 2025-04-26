@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gdse.serenity.controller.AccountSettingsController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="150.0" layoutY="91.0" prefHeight="400.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="Account Settings" textFill="#3a7a6f">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Separator prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </VBox.margin>
+                </Separator>
+
+                <!-- User Information Section -->
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="User Information" textFill="#3a7a6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="100.0" text="User ID:" />
+                                <Label fx:id="userIdLabel" text="USER_ID" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="100.0" text="Name:" />
+                                <Label fx:id="nameLabel" text="USER_NAME" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="100.0" text="Email:" />
+                                <Label fx:id="emailLabel" text="USER_EMAIL" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="100.0" text="Phone:" />
+                                <Label fx:id="phoneLabel" text="USER_PHONE" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="100.0" text="Role:" />
+                                <Label fx:id="roleLabel" text="USER_ROLE" />
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </VBox>
+
+                <Separator prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </VBox.margin>
+                </Separator>
+
+                <!-- Username Change Section -->
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Change Username" textFill="#3a7a6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="Current Username:" />
+                                <Label fx:id="currentUsernameLabel" text="CURRENT_USERNAME" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="New Username:" />
+                                <TextField fx:id="newUsernameField" promptText="Enter new username" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                            <children>
+                                <Button fx:id="updateUsernameButton" mnemonicParsing="false" onAction="#handleUpdateUsername" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Update Username" />
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </VBox>
+
+                <Separator prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                    </VBox.margin>
+                </Separator>
+
+                <!-- Password Change Section -->
+                <VBox spacing="10.0">
+                    <children>
+                        <Label text="Change Password" textFill="#3a7a6f">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="Current Password:" />
+                                <PasswordField fx:id="currentPasswordField" promptText="Enter current password" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="New Password:" />
+                                <PasswordField fx:id="newPasswordField" promptText="Enter new password" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label prefWidth="120.0" text="Confirm Password:" />
+                                <PasswordField fx:id="confirmPasswordField" promptText="Confirm new password" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                            <children>
+                                <Button fx:id="updatePasswordButton" mnemonicParsing="false" onAction="#handleUpdatePassword" style="-fx-background-color: #3a7a6f; -fx-text-fill: white;" text="Update Password" />
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </VBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                    <children>
+                        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" style="-fx-background-color: #cccccc;" text="Close" />
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" right="20.0" top="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancReception" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gdse.serenity.controller.ReceptionistDashboardController">
+<AnchorPane fx:id="ancReception" prefHeight="774.0" prefWidth="1127.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gdse.serenity.controller.ReceptionistDashboardController">
    <children>
-      <BorderPane prefHeight="700.0" prefWidth="1000.0">
+      <BorderPane prefHeight="774.0" prefWidth="1127.0">
           <top>
               <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #3a7a6f;" BorderPane.alignment="CENTER">
                   <children>
@@ -89,9 +89,9 @@
               </VBox>
           </left>
           <center>
-            <AnchorPane fx:id="ancContent" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="ancContent" prefHeight="700.0" prefWidth="927.0" BorderPane.alignment="CENTER">
                <children>
-                    <StackPane fx:id="contentArea">
+                    <StackPane fx:id="contentArea" prefHeight="700.0" prefWidth="926.0">
                         <children>
                             <VBox alignment="CENTER" spacing="20.0">
                                 <children>
