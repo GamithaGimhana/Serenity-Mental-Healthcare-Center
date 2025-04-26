@@ -204,10 +204,6 @@ public class PatientManagementController implements Initializable {
         }
     }
 
-    public void initData(Patient patient) {
-        currentPatient = patient;
-    }
-
     @FXML
     void handleClear(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         refreshPage();
