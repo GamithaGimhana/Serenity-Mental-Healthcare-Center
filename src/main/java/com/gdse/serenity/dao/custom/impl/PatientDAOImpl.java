@@ -82,7 +82,7 @@ public class PatientDAOImpl implements PatientDAO {
     public List<String> getEnrolledPrograms(String patientId) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<String> query = session.createQuery(
-                "SELECT tp.name FROM Patient p JOIN p.therapyPrograms tp WHERE p.pId = :id", String.class
+                "SELECT tp.name FROM Patient p JOIN TherapyProgram tp WHERE p.pId = :id", String.class
         );
         query.setParameter("id", patientId);
 

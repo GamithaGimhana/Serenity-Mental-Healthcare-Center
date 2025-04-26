@@ -8,6 +8,8 @@ import com.gdse.serenity.dto.PatientDTO;
 import com.gdse.serenity.dto.RegistrationDTO;
 import com.gdse.serenity.dto.TherapyProgramDTO;
 import com.gdse.serenity.dto.UserDTO;
+import com.gdse.serenity.entity.Patient;
+import com.gdse.serenity.entity.User;
 import com.gdse.serenity.util.EncryptionUtil;
 import com.gdse.serenity.view.tdm.RegistrationTM;
 import javafx.collections.FXCollections;
@@ -77,9 +79,23 @@ public class PatientRegistrationController implements Initializable {
     @FXML
     private TextField txtDownPayment;
 
+    private Patient currentPatient;
+
     RegistrationBOImpl registrationBO = (RegistrationBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.REGISTRATION);
     TherapistBOImpl therapistBO = (TherapistBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST);
     TherapyProgramBOImpl therapyProgramBO = (TherapyProgramBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_PROGRAM);
+
+    public void setCurrentPatient(Patient patient) {
+        this.currentPatient = patient;
+        populateUserInfo();
+    }
+
+    private void populateUserInfo() {
+        if (currentPatient != null) {
+            lblPatientId.setText(currentPatient.getPId());
+            lblPatientName.setText(currentPatient.getName());
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -181,6 +197,4 @@ public class PatientRegistrationController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "An error occurred.").show();
         }
     }
-
-
 }

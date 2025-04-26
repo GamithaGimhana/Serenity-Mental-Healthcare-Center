@@ -3,16 +3,23 @@ package com.gdse.serenity.controller;
 import com.gdse.serenity.bo.BOFactory;
 import com.gdse.serenity.bo.custom.impl.PatientBOImpl;
 import com.gdse.serenity.dto.PatientDTO;
+import com.gdse.serenity.entity.Patient;
+import com.gdse.serenity.entity.User;
 import com.gdse.serenity.view.tdm.PatientTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -110,6 +117,8 @@ public class PatientManagementController implements Initializable {
 
     PatientBOImpl patientBO = (PatientBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
 
+    private Patient currentPatient;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("pId"));
@@ -176,7 +185,27 @@ public class PatientManagementController implements Initializable {
 
     @FXML
     void handleAssignPrograms(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patientRegistrationFx.fxml"));
+            Parent root = loader.load();
 
+            PatientRegistrationController controller = loader.getController();
+            controller.setCurrentPatient(currentPatient);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Patient Registration");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Patient Registration page!").show();
+        }
+    }
+
+    public void initData(Patient patient) {
+        currentPatient = patient;
     }
 
     @FXML
@@ -322,6 +351,16 @@ public class PatientManagementController implements Initializable {
                 txtRegDate.setValue(patient.getRegistrationDate());
                 statusComboBox.setValue(patient.getStatus());
                 loadEnrolledPrograms(patient.getPId());
+
+                currentPatient = new Patient(
+                        patient.getPId(),
+                        patient.getName(),
+                        patient.getEmail(),
+                        patient.getPhone(),
+                        patient.getMedicalHistory(),
+                        patient.getRegistrationDate(),
+                        patient.getStatus()
+                );
                 statusLabel.setText("Patient found.");
             } else {
                 statusLabel.setText("Patient not found.");
@@ -355,6 +394,16 @@ public class PatientManagementController implements Initializable {
             txtRegDate.setValue(selectedItem.getRegistrationDate());
             statusComboBox.setValue(selectedItem.getStatus());
             loadEnrolledPrograms(selectedItem.getPId());
+
+            currentPatient = new Patient(
+                    selectedItem.getPId(),
+                    selectedItem.getName(),
+                    selectedItem.getEmail(),
+                    selectedItem.getPhone(),
+                    selectedItem.getMedicalHistory(),
+                    selectedItem.getRegistrationDate(),
+                    selectedItem.getStatus()
+            );
 
             saveButton.setDisable(true);
             editButton.setDisable(false);
