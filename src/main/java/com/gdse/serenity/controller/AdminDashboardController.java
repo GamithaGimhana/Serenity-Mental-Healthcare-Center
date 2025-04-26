@@ -89,13 +89,18 @@ public class AdminDashboardController {
                     System.out.println("Database connection closed on logout.");
                 }
 
-                // Clear the current menu page and load the login page
-                ancMenuPage.getChildren().clear();
-                AnchorPane load = FXMLLoader.load(getClass().getResource("/view/loginFx.fxml"));
-                load.prefWidthProperty().bind(ancMenuPage.widthProperty());
-                load.prefHeightProperty().bind(ancMenuPage.heightProperty());
+                // Load the login page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/loginFx.fxml"));
+                Parent root = loader.load();
 
-                ancMenuPage.getChildren().add(load);
+                Stage loginStage = new Stage();
+                loginStage.setTitle("Login");
+                loginStage.setScene(new Scene(root));
+                loginStage.show();
+
+                // Close the current Admin Dashboard window
+                Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+                currentStage.close();
 
             } catch (IOException e) {
                 e.printStackTrace();

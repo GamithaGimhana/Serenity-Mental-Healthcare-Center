@@ -95,13 +95,18 @@ public class ReceptionistDashboardController {
                     System.out.println("Database connection closed on logout.");
                 }
 
-                // Clear the current menu page and load the login page
-                ancReception.getChildren().clear();
-                AnchorPane load = FXMLLoader.load(getClass().getResource("/view/loginFx.fxml"));
-                load.prefWidthProperty().bind(ancReception.widthProperty());
-                load.prefHeightProperty().bind(ancReception.heightProperty());
+                // Load the login page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/loginFx.fxml"));
+                Parent root = loader.load();
 
-                ancReception.getChildren().add(load);
+                Stage loginStage = new Stage();
+                loginStage.setTitle("Login");
+                loginStage.setScene(new Scene(root));
+                loginStage.show();
+
+                // Close the current Admin Dashboard window
+                Stage currentStage = (Stage) logoutButton.getScene().getWindow();
+                currentStage.close();
 
             } catch (IOException e) {
                 e.printStackTrace();

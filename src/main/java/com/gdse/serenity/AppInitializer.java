@@ -39,6 +39,8 @@ public class AppInitializer extends Application {
 //            stage.setResizable(false);
 
             stage.setScene(value);
+            stage.centerOnScreen();
+
         });
 
         new Thread(loadingTask).start();

@@ -175,6 +175,7 @@ public class LoginController {
         stage.setScene(scene);
         stage.setTitle("Admin Dashboard - Serenity Mental Health Therapy Center");
         stage.show();
+        stage.centerOnScreen();
     }
 
     private void loadReceptionistDashboard(User user) throws IOException {
@@ -189,5 +190,6 @@ public class LoginController {
         stage.setScene(scene);
         stage.setTitle("Receptionist Dashboard - Serenity Mental Health Therapy Center");
         stage.show();
+        stage.centerOnScreen();
     }
 }
