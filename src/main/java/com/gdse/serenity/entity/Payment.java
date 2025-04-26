@@ -36,5 +36,4 @@ public class Payment implements SuperEntity {
         this.amount = amount;
     }
 
-    // Getters and Setters
 }

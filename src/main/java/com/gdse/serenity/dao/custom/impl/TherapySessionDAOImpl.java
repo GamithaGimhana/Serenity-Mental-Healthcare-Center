@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
-    public List<TherapySession> getAll() {
+    public List<TherapySession> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<TherapySession> query = session.createQuery("from TherapySession", TherapySession.class);
         List<TherapySession> therapySessions = query.list();
@@ -61,7 +62,7 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
-    public Optional<TherapySession> findById(String id) {
+    public Optional<TherapySession> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         TherapySession therapySession = session.get(TherapySession.class, id);
         session.close();
@@ -72,7 +73,7 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
-    public Optional<TherapySession> getLastId() {
+    public Optional<TherapySession> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT ts.tsId FROM TherapySession ts ORDER BY ts.tsId DESC ", String.class)

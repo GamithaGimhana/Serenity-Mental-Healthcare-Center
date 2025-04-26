@@ -31,13 +31,8 @@ public class Patient implements SuperEntity {
 
     private String status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "patient_program",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "program_id")
-    )
-    private Set<TherapyProgram> therapyPrograms = new HashSet<>();
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Registration> registrations = new HashSet<>();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<TherapySession> therapySessions = new ArrayList<>();
@@ -55,5 +50,4 @@ public class Patient implements SuperEntity {
         this.status = status;
     }
 
-    // Getters and Setters
 }

@@ -5,10 +5,13 @@ import com.gdse.serenity.entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -70,6 +73,8 @@ public class AdminDashboardController {
     @FXML
     private Label userNameLabel;
 
+    private User currentUser;
+
     @FXML
     void handleLogout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
@@ -104,7 +109,23 @@ public class AdminDashboardController {
 
     @FXML
     void openAccountSettings(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/accountSettingFx.fxml"));
+            Parent root = loader.load();
 
+            AccountSettingsController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Account Settings");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Account Settings page!").show();
+        }
     }
 
     @FXML
@@ -136,7 +157,7 @@ public class AdminDashboardController {
 
     @FXML
     void showTherapyPrograms(ActionEvent event) {
-
+        navigateTo("/view/therapyProgramManagementFx.fxml");
     }
 
     @FXML
@@ -145,7 +166,7 @@ public class AdminDashboardController {
     }
 
     public void initData(User user) {
-
+        currentUser = user;
     }
 
     public void navigateTo(String fxmlPath) {

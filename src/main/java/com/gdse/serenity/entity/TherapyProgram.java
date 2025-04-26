@@ -25,8 +25,6 @@ public class TherapyProgram implements SuperEntity {
 
     private double cost;
 
-    private String description;
-
     @ManyToMany
     @JoinTable(
             name = "program_therapist",
@@ -35,18 +33,16 @@ public class TherapyProgram implements SuperEntity {
     )
     private Set<Therapist> assignedTherapists = new HashSet<>();
 
-    @ManyToMany(mappedBy = "therapyPrograms")
-    private Set<Patient> patients = new HashSet<>();
+    @OneToMany(mappedBy = "therapyProgram", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Registration> registrations = new HashSet<>();
 
-    public TherapyProgram(String programId, String name, int durationInWeeks, double cost, String description) {
+    public TherapyProgram(String programId, String name, int durationInWeeks, double cost) {
 
         this.programId = programId;
         this.name = name;
         this.durationInWeeks = durationInWeeks;
         this.cost = cost;
-        this.description = description;
     }
 
-    // Getters and Setters
 }
 

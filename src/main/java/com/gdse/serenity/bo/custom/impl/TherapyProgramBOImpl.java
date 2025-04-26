@@ -9,6 +9,7 @@ import com.gdse.serenity.dto.UserDTO;
 import com.gdse.serenity.entity.TherapyProgram;
 import com.gdse.serenity.entity.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +25,22 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
     @Override
     public boolean save(TherapyProgramDTO therapyProgramDTO) throws SQLException, ClassNotFoundException {
-        return therapyProgramDAO.save(new TherapyProgram(therapyProgramDTO.getProgramId(), therapyProgramDTO.getName(), therapyProgramDTO.getDurationInWeeks(), therapyProgramDTO.getCost(), therapyProgramDTO.getDescription()));
+        return therapyProgramDAO.save(new TherapyProgram(therapyProgramDTO.getProgramId(), therapyProgramDTO.getName(), therapyProgramDTO.getDurationInWeeks(), therapyProgramDTO.getCost()));
     }
 
     @Override
-    public List<TherapyProgramDTO> getAll() throws SQLException, ClassNotFoundException {
+    public List<TherapyProgramDTO> getAll() throws SQLException, ClassNotFoundException, IOException {
         List<TherapyProgramDTO> therapyProgramDTOS = new ArrayList<>();
         List<TherapyProgram> therapyPrograms = therapyProgramDAO.getAll();
         for (TherapyProgram therapyProgram : therapyPrograms) {
-            therapyProgramDTOS.add(new TherapyProgramDTO(therapyProgram.getProgramId(), therapyProgram.getName(), therapyProgram.getDurationInWeeks(), therapyProgram.getCost(), therapyProgram.getDescription()));
+            therapyProgramDTOS.add(new TherapyProgramDTO(therapyProgram.getProgramId(), therapyProgram.getName(), therapyProgram.getDurationInWeeks(), therapyProgram.getCost()));
         }
         return therapyProgramDTOS;
     }
 
     @Override
     public boolean update(TherapyProgramDTO therapyProgramDTO) throws SQLException, ClassNotFoundException {
-        return therapyProgramDAO.update(new TherapyProgram(therapyProgramDTO.getProgramId(), therapyProgramDTO.getName(), therapyProgramDTO.getDurationInWeeks(), therapyProgramDTO.getCost(), therapyProgramDTO.getDescription()));
+        return therapyProgramDAO.update(new TherapyProgram(therapyProgramDTO.getProgramId(), therapyProgramDTO.getName(), therapyProgramDTO.getDurationInWeeks(), therapyProgramDTO.getCost()));
     }
 
     @Override
@@ -48,8 +49,13 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     }
 
     @Override
-    public Optional<TherapyProgramDTO> findById(String selectedTherapyProgramId) throws SQLException, ClassNotFoundException {
+    public Optional<TherapyProgramDTO> findById(String selectedTherapyProgramId) throws SQLException, ClassNotFoundException, IOException {
         Optional<TherapyProgram> therapyProgramOpt = therapyProgramDAO.findById(selectedTherapyProgramId);
-        return therapyProgramOpt.map(therapyProgram -> new TherapyProgramDTO(therapyProgram.getProgramId(), therapyProgram.getName(), therapyProgram.getDurationInWeeks(), therapyProgram.getCost(), therapyProgram.getDescription()));
+        return therapyProgramOpt.map(therapyProgram -> new TherapyProgramDTO(therapyProgram.getProgramId(), therapyProgram.getName(), therapyProgram.getDurationInWeeks(), therapyProgram.getCost()));
+    }
+
+    @Override
+    public List<String> getAllIds() throws SQLException, ClassNotFoundException, IOException {
+        return therapyProgramDAO.getAllIds();
     }
 }

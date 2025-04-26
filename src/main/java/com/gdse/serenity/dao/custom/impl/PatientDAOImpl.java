@@ -7,6 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +57,7 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public List<Patient> getAll() {
+    public List<Patient> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<Patient> query = session.createQuery("from Patient", Patient.class);
         List<Patient> patients = query.list();
@@ -61,7 +65,35 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public Optional<Patient> findById(String id) {
+    public List<String> getAllIds() throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<String> patientIds = new ArrayList<>();
+        try {
+            Query<String> query = session.createQuery("SELECT p.pId FROM Patient p", String.class);
+            patientIds = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return patientIds;
+    }
+
+    @Override
+    public List<String> getEnrolledPrograms(String patientId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Query<String> query = session.createQuery(
+                "SELECT tp.name FROM Patient p JOIN p.therapyPrograms tp WHERE p.pId = :id", String.class
+        );
+        query.setParameter("id", patientId);
+
+        List<String> programNames = query.getResultList();
+        session.close();
+        return programNames;
+    }
+
+
+    @Override
+    public Optional<Patient> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Patient patient = session.get(Patient.class, id);
         session.close();
@@ -72,7 +104,7 @@ public class PatientDAOImpl implements PatientDAO {
     }
 
     @Override
-    public Optional<Patient> getLastId() {
+    public Optional<Patient> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT p.pId FROM Patient p ORDER BY p.pId DESC ", String.class)

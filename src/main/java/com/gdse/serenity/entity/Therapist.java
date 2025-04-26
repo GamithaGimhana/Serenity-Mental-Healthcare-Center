@@ -46,6 +46,5 @@ public class Therapist implements SuperEntity {
         this.status = status;
     }
 
-    // Getters and Setters
 }
 

@@ -2,14 +2,8 @@ package com.gdse.serenity.controller;
 
 import com.gdse.serenity.bo.BOFactory;
 import com.gdse.serenity.bo.custom.impl.PatientBOImpl;
-import com.gdse.serenity.bo.custom.impl.TherapistBOImpl;
 import com.gdse.serenity.dto.PatientDTO;
-import com.gdse.serenity.dto.TherapistDTO;
-import com.gdse.serenity.dto.UserDTO;
-import com.gdse.serenity.util.EncryptionUtil;
 import com.gdse.serenity.view.tdm.PatientTM;
-import com.gdse.serenity.view.tdm.TherapistTM;
-import com.gdse.serenity.view.tdm.UserTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -54,7 +49,7 @@ public class PatientManagementController implements Initializable {
     private TableColumn<PatientTM, String> emailColumn;
 
     @FXML
-    private ListView<?> enrolledProgramsListView;
+    private ListView<String> enrolledProgramsListView;
 
     @FXML
     private ComboBox<String> filterComboBox;
@@ -72,7 +67,10 @@ public class PatientManagementController implements Initializable {
     private TableView<PatientTM> patientTable;
 
     @FXML
-    private TableColumn<PatientTM, String> programsColumn;
+    private TableColumn<PatientTM, String> dateColumn;
+
+    @FXML
+    private TableColumn<PatientTM, String> mediHisColumn;
 
     @FXML
     private Button saveButton;
@@ -112,24 +110,24 @@ public class PatientManagementController implements Initializable {
 
     PatientBOImpl patientBO = (PatientBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("pId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        programsColumn.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
+        mediHisColumn.setCellValueFactory(new PropertyValueFactory<>("medicalHistory"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         try {
             refreshPage();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void refreshPage() throws SQLException, ClassNotFoundException {
+    private void refreshPage() throws SQLException, ClassNotFoundException, IOException {
         refreshTable();
 
         String nextID = patientBO.getNextId();
@@ -156,7 +154,7 @@ public class PatientManagementController implements Initializable {
         statusComboBox.setItems(FXCollections.observableArrayList("Completed", "Not Completed"));
     }
 
-    private void refreshTable() throws SQLException, ClassNotFoundException {
+    private void refreshTable() throws SQLException, ClassNotFoundException, IOException {
         List<PatientDTO> patients = patientBO.getAll();  // Get all from the BO
         ObservableList<PatientTM> patientTMS = FXCollections.observableArrayList();
 
@@ -167,11 +165,13 @@ public class PatientManagementController implements Initializable {
                     patient.getEmail(),
                     patient.getPhone(),
                     patient.getRegistrationDate(),
+                    patient.getMedicalHistory(),
                     patient.getStatus()
             );
             patientTMS.add(patientTM);
         }
 
+        patientTable.setItems(patientTMS);
     }
 
     @FXML
@@ -180,7 +180,7 @@ public class PatientManagementController implements Initializable {
     }
 
     @FXML
-    void handleClear(ActionEvent event) throws SQLException, ClassNotFoundException {
+    void handleClear(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         refreshPage();
         statusLabel.setText("Form cleared");
     }
@@ -321,6 +321,7 @@ public class PatientManagementController implements Initializable {
                 txtMediHistory.setText(patient.getMedicalHistory());
                 txtRegDate.setValue(patient.getRegistrationDate());
                 statusComboBox.setValue(patient.getStatus());
+                loadEnrolledPrograms(patient.getPId());
                 statusLabel.setText("Patient found.");
             } else {
                 statusLabel.setText("Patient not found.");
@@ -342,7 +343,7 @@ public class PatientManagementController implements Initializable {
     }
 
     @FXML
-    void onClickTable(MouseEvent event) {
+    void onClickTable(MouseEvent event) throws SQLException, ClassNotFoundException, IOException {
         PatientTM selectedItem = patientTable.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             patientIdLabel.setText(selectedItem.getPId());
@@ -353,6 +354,7 @@ public class PatientManagementController implements Initializable {
             txtMediHistory.setText(selectedItem.getMedicalHistory());
             txtRegDate.setValue(selectedItem.getRegistrationDate());
             statusComboBox.setValue(selectedItem.getStatus());
+            loadEnrolledPrograms(selectedItem.getPId());
 
             saveButton.setDisable(true);
             editButton.setDisable(false);
@@ -360,4 +362,9 @@ public class PatientManagementController implements Initializable {
         }
     }
 
+    private void loadEnrolledPrograms(String patientId) throws SQLException, ClassNotFoundException, IOException {
+        List<String> programs = patientBO.getEnrolledPrograms(patientId);  // get from BO
+        ObservableList<String> programList = FXCollections.observableArrayList(programs);
+        enrolledProgramsListView.setItems(programList);
+    }
 }

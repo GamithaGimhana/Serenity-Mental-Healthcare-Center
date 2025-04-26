@@ -41,5 +41,4 @@ public class TherapySession implements SuperEntity {
         this.sessionDate = sessionDate;
     }
 
-    // Getters and Setters
 }

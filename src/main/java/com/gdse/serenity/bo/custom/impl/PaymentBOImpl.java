@@ -7,6 +7,7 @@ import com.gdse.serenity.dto.PaymentDTO;
 import com.gdse.serenity.dto.UserDTO;
 import com.gdse.serenity.entity.Payment;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class PaymentBOImpl implements PaymentBO {
     }
 
     @Override
-    public List<PaymentDTO> getAll() throws SQLException, ClassNotFoundException {
+    public List<PaymentDTO> getAll() throws SQLException, ClassNotFoundException, IOException {
         List<PaymentDTO> paymentDTOS = new ArrayList<>();
         List<Payment> payments = paymentDAO.getAll();
         for (Payment payment : payments) {
@@ -46,7 +47,7 @@ public class PaymentBOImpl implements PaymentBO {
     }
 
     @Override
-    public Optional<PaymentDTO> findById(String selectedPaymentId) throws SQLException, ClassNotFoundException {
+    public Optional<PaymentDTO> findById(String selectedPaymentId) throws SQLException, ClassNotFoundException, IOException {
         Optional<Payment> paymentOpt = paymentDAO.findById(selectedPaymentId);
         return paymentOpt.map(payment -> new PaymentDTO(payment.getPayId(), payment.getAmount(), payment.getPaymentDate(), payment.getPaymentMethod(), payment.getStatus()));
     }

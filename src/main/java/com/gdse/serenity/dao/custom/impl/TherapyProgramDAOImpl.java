@@ -2,11 +2,14 @@ package com.gdse.serenity.dao.custom.impl;
 
 import com.gdse.serenity.config.FactoryConfiguration;
 import com.gdse.serenity.dao.custom.TherapyProgramDAO;
+import com.gdse.serenity.entity.Therapist;
 import com.gdse.serenity.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +56,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
-    public List<TherapyProgram> getAll() {
+    public List<TherapyProgram> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<TherapyProgram> query = session.createQuery("from TherapyProgram", TherapyProgram.class);
         List<TherapyProgram> therapyPrograms = query.list();
@@ -61,7 +64,43 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
-    public Optional<TherapyProgram> findById(String id) {
+    public List<String> getAllIds() throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<String> programIds = new ArrayList<>();
+        try {
+            Query<String> query = session.createQuery("SELECT p.programId FROM TherapyProgram p", String.class);
+            programIds = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return programIds;
+    }
+
+    @Override
+    public List<String> getAssignedTherapists(String programId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Query<String> query = session.createQuery("SELECT t.name FROM TherapyProgram tp JOIN tp.assignedTherapists t WHERE tp.programId = :id", String.class);
+        query.setParameter("id", programId);
+
+        List<String> therapistNames = query.getResultList();
+        session.close();
+        return therapistNames;
+    }
+
+    @Override
+    public List<String> getEnrolledPatients(String programId) throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Query<String> query = session.createQuery("SELECT p.name FROM TherapyProgram tp JOIN tp.patients p WHERE tp.programId = :id", String.class);
+        query.setParameter("id", programId);
+
+        List<String> patientNames = query.getResultList();
+        session.close();
+        return patientNames;
+    }
+
+    @Override
+    public Optional<TherapyProgram> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         TherapyProgram therapyProgram = session.get(TherapyProgram.class, id);
         session.close();
@@ -72,7 +111,7 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
     }
 
     @Override
-    public Optional<TherapyProgram> getLastId() {
+    public Optional<TherapyProgram> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT tp.programId FROM TherapyProgram tp ORDER BY tp.programId DESC ", String.class)

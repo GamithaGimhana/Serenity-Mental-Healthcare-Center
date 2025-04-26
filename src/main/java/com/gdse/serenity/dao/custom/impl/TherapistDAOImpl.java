@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +55,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
-    public List<Therapist> getAll() {
+    public List<Therapist> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<Therapist> query = session.createQuery("from Therapist", Therapist.class);
         List<Therapist> therapists = query.list();
@@ -61,7 +63,21 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
-    public Optional<Therapist> findById(String id) {
+    public List<String> getAllIds() throws IOException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        List<String> therapistIds = new ArrayList<>();
+        try {
+            Query<String> query = session.createQuery("SELECT t.tId FROM Therapist t", String.class);
+            therapistIds = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return therapistIds;
+    }
+
+    @Override
+    public Optional<Therapist> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Therapist therapist = session.get(Therapist.class, id);
         session.close();
@@ -72,7 +88,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
-    public Optional<Therapist> getLastId() {
+    public Optional<Therapist> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT t.tId FROM Therapist t ORDER BY t.tId DESC ", String.class)

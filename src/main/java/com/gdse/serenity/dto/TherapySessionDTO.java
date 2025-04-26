@@ -26,4 +26,9 @@ public class TherapySessionDTO implements SuperEntity {
         this.tsId = tsId;
         this.sessionDate = sessionDate;
     }
+
+    public TherapySessionDTO(String id, LocalDate date, String therapistId, String patientId, String programId) {
+        this.tsId = id;
+        this.sessionDate = date;
+    }
 }

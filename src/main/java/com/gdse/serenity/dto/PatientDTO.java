@@ -34,4 +34,5 @@ public class PatientDTO {
         this.registrationDate = regDate;
         this.status = status;
     }
+
 }

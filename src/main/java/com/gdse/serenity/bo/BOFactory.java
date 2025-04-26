@@ -18,7 +18,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        USER, THERAPIST, PATIENT, THERAPY_PROGRAM, THERAPY_SESSION, PAYMENT
+        USER, THERAPIST, PATIENT, THERAPY_PROGRAM, THERAPY_SESSION, PAYMENT, REGISTRATION
     }
 
     public SuperBO getBO(BOType type) {
@@ -35,6 +35,8 @@ public class BOFactory {
                 return new TherapySessionBOImpl();
             case PAYMENT:
                 return new PaymentBOImpl();
+            case REGISTRATION:
+                return new RegistrationBOImpl();
             default:
                 return null;
         }

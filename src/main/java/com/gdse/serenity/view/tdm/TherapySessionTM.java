@@ -1,5 +1,8 @@
 package com.gdse.serenity.view.tdm;
 
+import com.gdse.serenity.dto.PatientDTO;
+import com.gdse.serenity.dto.TherapistDTO;
+import com.gdse.serenity.dto.TherapyProgramDTO;
 import com.gdse.serenity.entity.SuperEntity;
 import lombok.*;
 
@@ -14,8 +17,8 @@ import java.util.Date;
 public class TherapySessionTM implements SuperEntity {
     private String tsId;
     private LocalDate sessionDate;
-    private TherapistTM therapist;
-    private PatientTM patient;
-    private TherapyProgramTM program;
+    private TherapistDTO therapist;
+    private PatientDTO patient;
+    private TherapyProgramDTO program;
 
 }

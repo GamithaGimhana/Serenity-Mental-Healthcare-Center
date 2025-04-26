@@ -9,10 +9,10 @@ module Serenity.ORM.Coursework {
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     requires java.naming;
+    requires com.google.protobuf;
 
     opens com.gdse.serenity.entity to org.hibernate.orm.core;
     opens com.gdse.serenity.config to jakarta.persistence;
-//    opens com.gdse.serenity.config to javafx.fxml;
     opens com.gdse.serenity.view.tdm to javafx.base;
     opens com.gdse.serenity.controller to javafx.fxml;
 

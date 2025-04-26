@@ -6,6 +6,7 @@ import com.gdse.serenity.dao.custom.TherapySessionDAO;
 import com.gdse.serenity.dto.TherapySessionDTO;
 import com.gdse.serenity.entity.TherapySession;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
     @Override
-    public List<TherapySessionDTO> getAll() throws SQLException, ClassNotFoundException {
+    public List<TherapySessionDTO> getAll() throws SQLException, ClassNotFoundException, IOException {
         List<TherapySessionDTO> therapySessionDTOS = new ArrayList<>();
         List<TherapySession> therapySessions = therapySessionDAO.getAll();
         for (TherapySession therapySession : therapySessions) {
@@ -45,7 +46,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
     @Override
-    public Optional<TherapySessionDTO> findById(String selectedTherapySessionId) throws SQLException, ClassNotFoundException {
+    public Optional<TherapySessionDTO> findById(String selectedTherapySessionId) throws SQLException, ClassNotFoundException, IOException {
         Optional<TherapySession> therapySessionOpt = therapySessionDAO.findById(selectedTherapySessionId);
         return therapySessionOpt.map(therapySession -> new TherapySessionDTO(therapySession.getTsId(), therapySession.getSessionDate()));
     }

@@ -6,6 +6,7 @@ import com.gdse.serenity.dao.custom.UserDAO;
 import com.gdse.serenity.dto.UserDTO;
 import com.gdse.serenity.entity.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public List<UserDTO> getAll() throws SQLException, ClassNotFoundException {
+    public List<UserDTO> getAll() throws SQLException, ClassNotFoundException, IOException {
         List<UserDTO> userDTOs = new ArrayList<>();
         List<User> users = userDAO.getAll();
         for (User user : users) {
@@ -45,7 +46,7 @@ public class UserBOImpl implements UserBO {
     }
 
     @Override
-    public Optional<UserDTO> findById(String selectedUserId) throws SQLException, ClassNotFoundException {
+    public Optional<UserDTO> findById(String selectedUserId) throws SQLException, ClassNotFoundException, IOException {
         Optional<User> userOpt = userDAO.findById(selectedUserId);
         return userOpt.map(user -> new UserDTO(user.getUserId(), user.getName(), user.getEmail(), user.getPhone(), user.getUsername(), user.getPassword(), user.getRole()));
     }

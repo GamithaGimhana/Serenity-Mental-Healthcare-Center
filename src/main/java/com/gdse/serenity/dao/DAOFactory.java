@@ -13,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DAOType {
-        USER, THERAPIST, PATIENT, THERAPY_PROGRAM, THERAPY_SESSION, PAYMENT
+        USER, THERAPIST, PATIENT, THERAPY_PROGRAM, THERAPY_SESSION, PAYMENT, REGISTRATION
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +32,8 @@ public class DAOFactory {
                 return (T) new TherapySessionDAOImpl();
             case PAYMENT:
                 return (T) new PaymentDAOImpl();
+            case REGISTRATION:
+                return (T) new RegistrationDAOImpl();
                 // methnin cast klama bo impl ekedi cast krnn oni naa
             default:
                 return null;

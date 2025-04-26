@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public List<Payment> getAll() {
+    public List<Payment> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<Payment> query = session.createQuery("from Payment", Payment.class);
         List<Payment> payments = query.list();
@@ -61,7 +62,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public Optional<Payment> findById(String id) {
+    public Optional<Payment> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Payment payment = session.get(Payment.class, id);
         session.close();
@@ -72,7 +73,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public Optional<Payment> getLastId() {
+    public Optional<Payment> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT py.payId FROM Payment py ORDER BY py.payId DESC ", String.class)

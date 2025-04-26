@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Query<User> query = session.createQuery("from User", User.class);
         List<User> users = query.list();
@@ -61,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> findById(String id) {
+    public Optional<User> findById(String id) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         User user = session.get(User.class, id);
         session.close();
@@ -72,7 +73,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> getLastId() {
+    public Optional<User> getLastId() throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         String lastPK = session
                 .createQuery("SELECT u.userId FROM User u ORDER BY u.userId DESC ", String.class)

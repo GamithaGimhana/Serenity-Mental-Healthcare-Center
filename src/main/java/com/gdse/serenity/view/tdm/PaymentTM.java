@@ -1,5 +1,6 @@
 package com.gdse.serenity.view.tdm;
 
+import com.gdse.serenity.dto.PatientDTO;
 import com.gdse.serenity.entity.SuperEntity;
 import lombok.*;
 
@@ -17,6 +18,6 @@ public class PaymentTM implements SuperEntity {
     private LocalDate paymentDate;
     private String paymentMethod;
     private String status;
-    private PatientTM patient;
+    private PatientDTO patient;
 
 }

@@ -17,16 +17,14 @@ public class TherapyProgramDTO implements SuperEntity {
     private String name;
     private int durationInWeeks;
     private double cost;
-    private String description;
     private Set<TherapistDTO> assignedTherapists = new HashSet<>();
     private Set<PatientDTO> patients = new HashSet<>();
 
-    public TherapyProgramDTO(String programId, String name, int durationInWeeks, double cost, String description) {
+    public TherapyProgramDTO(String programId, String name, int durationInWeeks, double cost) {
         this.programId = programId;
         this.name = name;
         this.durationInWeeks = durationInWeeks;
         this.cost = cost;
-        this.description = description;
     }
 }
 

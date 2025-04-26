@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 
+import java.io.IOException;
+
 public class AppInitializer extends Application {
 
     @Override
@@ -42,7 +44,7 @@ public class AppInitializer extends Application {
         new Thread(loadingTask).start();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Session session = FactoryConfiguration.getInstance().getSession();
         session.close();
         launch();

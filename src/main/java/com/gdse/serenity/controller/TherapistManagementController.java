@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -113,12 +114,12 @@ public class TherapistManagementController implements Initializable {
 
         try {
             refreshPage();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void refreshPage() throws SQLException, ClassNotFoundException {
+    private void refreshPage() throws SQLException, ClassNotFoundException, IOException {
         refreshTable();
 
         String nextID = therapistBO.getNextId();
@@ -143,7 +144,7 @@ public class TherapistManagementController implements Initializable {
         statusComboBox.setItems(FXCollections.observableArrayList("Available", "Not Available"));
     }
 
-    private void refreshTable() throws SQLException, ClassNotFoundException {
+    private void refreshTable() throws SQLException, ClassNotFoundException, IOException {
         List<TherapistDTO> therapists = therapistBO.getAll();  // Get all from the BO
         ObservableList<TherapistTM> therapistTMS = FXCollections.observableArrayList();
 
@@ -168,7 +169,7 @@ public class TherapistManagementController implements Initializable {
     }
 
     @FXML
-    void handleClear(ActionEvent event) throws SQLException, ClassNotFoundException {
+    void handleClear(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         refreshPage();
         statusLabel.setText("Form cleared");
     }

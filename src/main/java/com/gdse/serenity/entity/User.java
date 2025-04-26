@@ -36,5 +36,4 @@ public class User implements SuperEntity {
     @Column
     private String role;
 
-
 }
